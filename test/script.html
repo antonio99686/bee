@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supermercado</title>
+</head>
+<body>
+    <h1>Supermercado</h1>
+    
+    <div>
+        <h2>Produtos</h2>
+        <ul id="lista-produtos">
+            <li>
+                <span>Maçã</span>
+                <span>R$ 2.50</span>
+                <button onclick="adicionarProduto('Maçã', 2.50)">Adicionar ao Carrinho</button>
+            </li>
+            <li>
+                <span>Arroz</span>
+                <span>R$ 10.00</span>
+                <button onclick="adicionarProduto('Arroz', 10.00)">Adicionar ao Carrinho</button>
+            </li>
+            <li>
+                <span>Leite</span>
+                <span>R$ 3.00</span>
+                <button onclick="adicionarProduto('Leite', 3.00)">Adicionar ao Carrinho</button>
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <h2>Carrinho de Compras</h2>
+        <ul id="carrinho">
+            
+        </ul>
+        <p>Total: R$ <span id="total">0.00</span></p>
+        <button onclick="exibirRecibo()">Finalizar Compra</button>
+    </div>
+
+    <script>
+        const carrinho = [];
+        let total = 0;
+
+        function adicionarProduto(nome, preco) {
+            const produto = { nome, preco };
+            carrinho.push(produto);
+            total += preco;
+            atualizarCarrinho();
+        }
+
+        function atualizarCarrinho() {
+            const carrinhoElement = document.getElementById("carrinho");
+            const totalElement = document.getElementById("total");
+            
+            carrinhoElement.innerHTML = "";
+            
+            for (const produto of carrinho) {
+                const li = document.createElement("li");
+                li.textContent = `${produto.nome}: R$ ${produto.preco.toFixed(2)}`;
+                carrinhoElement.appendChild(li);
+            }
+
+            totalElement.textContent = total.toFixed(2);
+        }
+
+        function exibirRecibo() {
+            alert("Recibo da Compra:\n\n" + carrinho.map(p => `${p.nome}: R$ ${p.preco.toFixed(2)}`).join("\n") + "\n\nTotal: R$ " + total.toFixed(2));
+        }
+    </script>
+</body>
+</html>
