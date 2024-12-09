@@ -10,20 +10,131 @@
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Supermercado Prata e Ouro</title>
+    <style>
+        /* Estilo geral da página */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+
+        /* Cabeçalho */
+        header {
+            background: url('img/bg-supermercado.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-bottom: 1.5em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Botões principais */
+        .main-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .main-buttons a {
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-align: center;
+            width: 180px;
+        }
+
+        .main-buttons a:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        /* Sessões de categorias */
+        .category-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2em;
+            padding: 3em 10%;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 2em;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-card h1 {
+            font-size: 1.8em;
+            margin-bottom: 1em;
+            color: #4CAF50;
+        }
+
+        .add-to-cart {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        .add-to-cart:hover {
+            background-color: #45a049;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1.5em;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
 </head>
 
 <body>
 
     <header>
         <h1>Supermercado Prata e Ouro</h1>
-        <nav>
-            <ul>
-                <li><a href="formcad.php">Cadastrar Produto</a></li>
-                <li><a href="listar.php">Consultar Lista</a></li>
-                <li><a href="formedit.php">Editar Produto</a></li>
-                <li><a href="carrinho.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
-            </ul>
-        </nav>
+        <p>Qualidade e preço baixo em um só lugar!</p>
+        <div class="main-buttons">
+            <a href="formcad.php">Cadastrar Produto</a>
+            <a href="listar.php">Consultar Lista</a>
+            <a href="carrinho.php"><i class="fa-solid fa-cart-shopping"></i> Carrinho</a>
+        </div>
     </header>
 
     <main>
@@ -56,22 +167,20 @@
                     <input class="add-to-cart" type="submit" value="Entrar" />
                 </form>
             </div>
-            <div class="category-card produtos">
+            <div class="category-card doces">
                 <h1>Sessão de Doces</h1>
                 <form action="doces.php" method="GET">
                     <h3>Venha conferir</h3>
                     <input class="add-to-cart" type="submit" value="Entrar" />
                 </form>
             </div>
-            <!-- Adicione mais categorias aqui, se necessário -->
         </section>
     </main>
-
-    <script src="/script.js"></script>
 
     <footer>
         <p>&copy; 2024 Supermercado Prata e Ouro. Todos os direitos reservados.</p>
     </footer>
+
 </body>
 
 </html>
