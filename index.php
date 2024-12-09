@@ -1,3 +1,23 @@
+<?php
+// Conectar ao banco de dados
+require_once "conexao.php";
+$conexao = conectar();
+
+// Consultar produtos para ofertas
+$sql = "SELECT * FROM produtos ORDER BY RAND() LIMIT 3"; // Exemplo de consulta para pegar 3 produtos aleatórios
+$resultado = recuperarResultados($conexao, $sql);
+
+// Exibir os produtos
+foreach ($resultado as $produto) {
+    echo "<h3>" . $produto['nome'] . "</h3>";
+    echo "<p>Preço: R$" . number_format($produto['preco'], 2, ',', '.') . "</p>";
+}
+
+// Fechar a conexão
+fecharConexao($conexao);
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -25,7 +45,7 @@
 
         /* Cabeçalho */
         header {
-            background: url('img/bg-supermercado.jpg') no-repeat center center/cover;
+            background: url('img/aces/mercado.webp') no-repeat center center/cover;
             color: white;
             text-align: center;
             padding: 100px 0;
@@ -111,6 +131,63 @@
             background-color: #45a049;
         }
 
+        /* Ofertas do dia */
+        .offers-section {
+            background-color: #f1f1f1;
+            padding: 3em 10%;
+            text-align: center;
+        }
+
+        .offers-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 1.5em;
+            color: #4CAF50;
+        }
+
+        .offers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2em;
+        }
+
+        .offer-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 2em;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .offer-card img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .offer-card h3 {
+            font-size: 1.5em;
+            margin: 1em 0;
+            color: #4CAF50;
+        }
+
+        .offer-card .old-price {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .offer-card .discount-price {
+            font-size: 1.5em;
+            color: #e74c3c;
+            margin-top: 0.5em;
+        }
+
         /* Rodapé */
         footer {
             background-color: #333;
@@ -175,6 +252,32 @@
                 </form>
             </div>
         </section>
+
+        <!-- Seção de Ofertas do Dia -->
+        <section class="offers-section">
+            <h2>Ofertas do Dia</h2>
+            <div class="offers-container">
+                <?php
+                // Verifica se há produtos para mostrar
+                if (count($produtos) > 0) {
+                    foreach ($produtos as $produto) {
+                ?>
+                        <div class="offer-card">
+                            <img src="img/<?php echo $produto['imagem']; ?>" alt="Oferta de <?php echo $produto['nome']; ?>">
+                            <h3><?php echo $produto['nome']; ?> - <?php echo $produto['descricao']; ?></h3>
+                            <p class="old-price">R$ <?php echo number_format($produto['preco_original'], 2, ',', '.'); ?></p>
+                            <p class="discount-price">R$ <?php echo number_format($produto['preco_promocional'], 2, ',', '.'); ?></p>
+                            <button class="add-to-cart">Comprar</button>
+                        </div>
+                <?php
+                    }
+                } else {
+                    echo '<p>Não há ofertas disponíveis no momento.</p>';
+                }
+                ?>
+            </div>
+        </section>
+
     </main>
 
     <footer>
